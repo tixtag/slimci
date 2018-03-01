@@ -98,14 +98,14 @@ body {
   border: 0 none;
   outline: 0 none;
   background-color: #fff;
-  border: 1px solid #FB8C00;
+  border: 1px solid #FDD100;
   color: #636363;
   font-size: 15px;
 }
 
 .flipkart-navbar-button {
-  background-color: #FB8C00;
-  border: 1px solid #FB8C00;
+  background-color: #FDD100;
+  border: 1px solid #FDD100;
   border-radius: 0 2px 2px 0;
   color: #fff;
   padding: 6px 0;
@@ -280,7 +280,7 @@ body {
   bottom: 0;
   width: 100%;
   height: 10px;
-  background-color: #FB8C00; /*1F2125*/
+  background-color: #FDD100; /*1F2125*/
 }
 
 .title-arch {
