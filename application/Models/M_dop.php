@@ -10,7 +10,20 @@ class M_dop extends Model
 {
 
   public $timestamps = true;
+  protected $guarded = [];
   protected static $_table;
+
+  public static function setName($table, $parms = Array())
+  {
+      $ret = null;
+      if (class_exists($table)){
+          $ret = new $table($parms);
+      } else {
+          $ret = new static($parms);
+          $ret->setTable($table);
+      }
+      return $ret;
+  }
 
   public function setTable($table)
   {
@@ -23,7 +36,7 @@ class M_dop extends Model
   }
 
 // set column to save insert or update
-  public function setColumnArr($data)
+  public function setColumnArr($where,$data)
   {
     $arr = array();
     foreach ($data as $key => $row) {
@@ -47,7 +60,7 @@ class M_dop extends Model
   {
     $this->setTable($table);
     $query = $this;
-    $this->setColumnArr($data);
+    $this->setColumnArr($query,$data);
     $req = $query->save();
     return $req;
   }
@@ -58,7 +71,7 @@ class M_dop extends Model
     $this->setTable($table);
     $query = $this;
     $query->where($column,$key);
-    $this->setColumnArr($data);
+    $this->setColumnArr($query,$data);
     $req = $query->save();
     return $req;
   }
@@ -73,7 +86,7 @@ class M_dop extends Model
         $where[] = [$column,$val];
     }
     $query->where($where);
-    $this->setColumnArr($data);
+    $this->setColumnArr($query,$data);
     $req = $query->save();
     return $req;
   }

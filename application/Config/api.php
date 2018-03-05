@@ -15,6 +15,8 @@ use Application\Library\AuthJwt_lib;
 
 
 $app->post('/customer/login', Customer::class.':login');
+$app->post('/customer/regis', Customer::class.':regis');
+
 $app->group('/customer', function(){
   $this->get('/getAll', Customer::class.':getAll');
   $this->post('/getWhere', Customer::class.':getWhere');

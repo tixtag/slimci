@@ -27,8 +27,10 @@ class ComposerStaticInit79b1020c361d48d974f0204cbb36998e
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'I' => 
         array (
@@ -78,6 +80,10 @@ class ComposerStaticInit79b1020c361d48d974f0204cbb36998e
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
         ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
+        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
@@ -85,6 +91,10 @@ class ComposerStaticInit79b1020c361d48d974f0204cbb36998e
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Interop\\Container\\' => 
         array (

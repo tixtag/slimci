@@ -5,23 +5,95 @@
  */
 namespace Application\Controllers;
 use \Firebase\JWT\JWT;
+use \PHPMailer\PHPMailer\PHPMailer;
+use \PHPMailer\PHPMailer\SMPT;
+use \PHPMailer\PHPMailer\Exception;
+use \Application\Library\AuthEmail_lib;
+require '../vendor/autoload.php';
 
 class Customer extends BaseControllers
 {
+
+    public function regis($req, $res, $arg)
+    {
+      $post = $req->getParsedBody();
+      $get = $this->mdop->getWhere('customer','email',$post['mail']);
+      if(empty($get[0]->email)){
+        $data = array(
+          'email' => $post['mail'],
+          'password' => MD5($post['pass']),
+          'status' => 'P'
+        );
+        $query = $this->mdop->insert('customer',$data);
+
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        // $mail->SMTPDebug = 2;
+        $mail->SMTPAuth = true;
+        $mail->Host = 'ssl://smtp.gmail.com:465';
+        $mail->Username = 'ajakpiknik@gmail.com';
+        $mail->Password = '24des16#';
+        $mail->SMTPOptions = array(
+          'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+          )
+        );
+        $mail->IsHTML(true);
+        $mail->Sender= 'ajakpiknik@gmail.com';
+        $mail->SetFrom('ajakpiknik@gmail.com', 'Tixtag.co.id');
+        $mail->Subject = 'Tixtag.co.id account activation';
+        $temp = new AuthEmail_lib();
+
+        $ket ='Dear..<br>
+          Thank you for registering at Tixtag.co.id<br>
+          Click the confirmation below to activate your Tixtag.co.id account.<br><br>
+          Here below your login data,<br><br>
+          Email: '.$post['mail'].'<br>
+          Password: '.$post['pass'].'<br><br><br>
+          For the sake of your Account security, please keep your personal data from unauthorized persons with this Login Data.<br>
+          Thank you<br>
+          <br>Salam<br> Support Tixtag.co.id <br><br><br><br>';
+
+        $mail->Body = $temp->fh_verifikasi(
+                              $aktifUrl='',
+                              $ket,
+                              $judul='Confirmation of registration.',
+                              $label='Confirmation',
+                              $email='tixtag@gmail.com',
+                              $telp='+62 812 8052 5231'
+                            );
+
+        $mail->AddAddress($post['mail']);
+        $mail->Send();
+        return $res->withJson([
+          'success' => true,
+          'message' => 'Registration is successful please check email.',
+          'data' => $query
+        ]);
+      }else{
+        return $res->withJson([
+          'success' => false,
+          'message' => 'This email is already registered.',
+          'data' => $query
+        ]);
+      }
+    }
 
     public function login($req, $res, $arg)
     {
       $post = $req->getParsedBody();
       $data = array(
-        'username' => $post['username'],
-        'password' => $post['password'],
+        'email' => $post['mail'],
+        'password' => MD5($post['pass']),
         'status' => 'A'
       );
       $query = $this->mdop->getWhereArray('customer',$data);
 
-      if(empty($query)){
+      if(empty($query[0]->email)){
         return $res->withJson([
-          'success' => false, 'message' => 'Username or Password false.'
+          'success' => false, 'message' => 'Email or Password incorrect.'
         ]);
       }
 
