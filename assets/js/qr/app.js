@@ -36,14 +36,21 @@
 //   }
 // });
 
-// let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-let scanner = new Instascan.Scanner({
-  video: document.getElementById('preview'),
-  mirror: false // prevents the video to be mirrored
-});
+let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
 
 scanner.addListener('scan', function (content) {
   $('#listqr').append('<li>'+content+'</li>');
+
+    $.ajax({
+        url: '../public/qrcodes/decodeqr',
+        data: $('#userloginform').serialize(),
+        type: 'POST',
+        dataType: 'json',
+        success: function(data){
+          window.localStorage["datalogin"] = JSON.stringify(data);
+        }
+    });
+
 });
 
 Instascan.Camera.getCameras().then(function (cameras) {

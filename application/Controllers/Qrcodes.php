@@ -44,7 +44,7 @@ class Qrcodes extends BaseControllers
         $res = new QrCodeResponse($qrCode);
     }
 
-    public function comperQr($req, $res, $arg)
+    public function decodeQr($req, $res, $arg)
     {
 
 
