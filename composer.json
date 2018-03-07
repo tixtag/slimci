@@ -6,7 +6,8 @@
         "slim/twig-view": "^2.3",
         "vlucas/phpdotenv": "^2.4",
         "pusher/pusher-php-server": "^3.0",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "endroid/qrcode": "^3.2"
     },
     "autoload":{
         "psr-4":{

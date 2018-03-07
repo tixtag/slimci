@@ -9,6 +9,13 @@ use Interop\Container\ContainerInterface;
 class Home extends BaseControllers
 {
 
+    public function qrscanner($req, $res, $arg)
+    {
+
+      return $this->c->view->render($res, 'qr/qrscanner.html');
+
+    }
+
     public function home($req, $res, $arg)
     {
 

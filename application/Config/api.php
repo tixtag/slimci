@@ -11,11 +11,14 @@ use Application\Controllers\StylistDetail;
 use Application\Controllers\UserPage;
 use Application\Controllers\PageDetail;
 use Application\Controllers\Gallery;
+use Application\Controllers\Qrcodes;
 use Application\Library\AuthJwt_lib;
 
 
 $app->post('/customer/login', Customer::class.':login');
 $app->post('/customer/regis', Customer::class.':regis');
+$app->post('/qrcodes/generedqr', Qrcodes::class.':generedqr');
+$app->post('/qrcodes/comperqr', Qrcodes::class.':comperqr');
 
 $app->group('/customer', function(){
   $this->get('/getAll', Customer::class.':getAll');

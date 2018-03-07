@@ -7,6 +7,7 @@ use Application\Controllers\Home;
 use Application\Library\AuthJwt_lib;
 
 $app->get('/home', Home::class.':home');
+$app->get('/qrscanner', Home::class.':qrscanner');
 $app->get('/join', Home::class.':join');
 $app->get('/booking', Home::class.':booking');
 $app->get('/maps', Home::class.':maps');
